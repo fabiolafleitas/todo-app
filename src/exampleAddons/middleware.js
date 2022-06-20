@@ -27,3 +27,33 @@ export const print3 = (storeAPI) => (next) => (action) => {
   console.log('3')
   return next(action) // finally, calls the original dispatch function and the rootReducer
 }
+// Redux middleware are written as a series of three nested functions
+function exampleMiddleware(storeAPI) {
+  // Receives a function called next, it is actually the next middleware in the pipeline
+  return function wrapDispatch(next) {
+    return function handleAction(action) {
+      // Do anything here: pass the action onwards with next(action)
+      // or restart the pipeline with storeAPI.dispatch(action)
+      // Can also use storeAPI.getState() here
+
+      return next(action)
+    }
+  }
+}
+
+export const logger = storeAPI => next => action => {
+  console.log('dispatching ', action)
+  const result = next(action)
+  console.log('next state ', storeAPI.getState())
+  return result
+}
+
+export const delayedMessage = storeAPI => next => action => {
+  if(action.type === 'todos/todoAdded'){
+    setTimeout(() => {
+      console.log('Added a new todo: ', action.payload)
+    }, 1000)
+  }
+
+  return next(action)
+}

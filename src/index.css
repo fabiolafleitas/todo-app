@@ -17,6 +17,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("./images/background.png");
+  background-color: var(--redux-color);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 div#root {
@@ -48,27 +52,17 @@ button {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Navbar */
+label {
+  font-weight: normal;
+}
 
 .App {
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-nav {
-  display: flex;
-  padding: 0;
-  background: var(--redux-color);
-}
-
-nav section {
-  width: 100%;
-}
-
-nav section h1,
-nav section {
-  color: white;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 /* Main content */
@@ -86,11 +80,17 @@ section h1 {
 
 .button {
   display: inline-block;
-  background: #1976d2;
+  background-color: var(--redux-color);
   color: white;
+  border-color: var(--redux-color);
   border-radius: 4px;
-  font-weight: 700;
+  font-weight: 100;
   padding: 0.75rem 1.5rem;
+}
+
+.button:hover {
+  background-color: #622CB7FF;
+  border-color: #622CB7FF;
 }
 
 button:disabled,
@@ -189,29 +189,6 @@ button:disabled:hover {
 
 /* TodoMVC App CSS */
 
-main {
-  background: #f5f5f5;
-  color: #111111;
-  min-width: 230px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-grow: 2;
-}
-
-main h1,
-main h2 {
-  width: 100%;
-  font-size: 50px;
-  font-weight: 200;
-  text-align: center;
-  color: #b83f45;
-  margin-top: 0;
-  -webkit-text-rendering: optimizeLegibility;
-  -moz-text-rendering: optimizeLegibility;
-  text-rendering: optimizeLegibility;
-}
-
 :focus {
   outline: 0;
 }
@@ -219,9 +196,16 @@ main h2 {
 .hidden {
   display: none;
 }
+.card {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
+}
 
 .todoapp {
-  background: #fff;
+  padding: 10px 15px;
   min-width: 800px;
   position: relative;
   display: flex;
@@ -230,7 +214,7 @@ main h2 {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
-.todoapp input::input-placeholder,
+.todoapp input::placeholder,
 .todoapp input::-webkit-input-placeholder,
 .todoapp input::-moz-placeholder {
   font-style: italic;
@@ -396,7 +380,14 @@ ul.todo-list {
   margin: 0 10px;
   height: 30px;
   line-height: 24px;
-  font-weight: 700;
+  background: none;
+  border: 1px solid transparent;
+}
+
+.todo-list li select.colorPicker:active,
+.todo-list li select.colorPicker:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .todo-list li select.colorPicker option {
@@ -429,7 +420,8 @@ ul.todo-list {
   margin-right: 10px;
   font-size: 30px;
   line-height: 30px;
-  color: #cc9a9a;
+  color: #c3c3c3;
+  opacity: 0.5;
   transition: color 0.2s ease-out;
   background: unset !important;
   border: unset !important;
@@ -439,7 +431,8 @@ ul.todo-list {
 }
 
 .todo-list li .destroy:hover {
-  color: #af5b5e;
+  color: #c3c3c3;
+  opacity: 1;
 }
 
 /* Font-Awesome base icon rules */
@@ -456,19 +449,13 @@ ul.todo-list {
   border-top: 1px solid #e6e6e6;
 }
 
-.footer h5 {
-  font-size: 1rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
 .footer .actions {
   display: flex;
   flex-direction: column;
 }
 
 .footer .actions button {
-  padding: 5px 10px;
+  padding: 10px 15px;
   margin: 5px 6px 10px;
   border-radius: 4px;
   white-space: nowrap;
@@ -501,20 +488,21 @@ ul.todo-list {
 }
 
 .filters.statusFilters li button:hover {
-  border-color: rgba(175, 47, 47, 0.1);
+  border-color: #764ABC80;
 }
 
 .filters.statusFilters li button.selected {
-  border-color: rgba(175, 47, 47, 0.3);
+  border-color: var(--redux-color);
 }
 
 .filters.colorFilters .color-block {
   display: inline-block;
   width: 20px;
   height: 12px;
-  border-radius: 3;
+  border-radius: 3px;
   margin-left: 5px;
   margin-right: 5px;
+  font-weight: normal;
 }
 
 .info {

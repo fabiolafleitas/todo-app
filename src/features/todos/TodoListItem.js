@@ -1,12 +1,16 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { availableColors, capitalize } from '../filters/colors'
+import { selectTodoById } from './todosSlice'
 
-const TodoListItem = React.memo(({ todo, onColorChange, onCompletedChange, onDelete }) => {
-  const { id, text, completed, color } = todo
+export default function TodoListItem({ id, onColorChange, onDelete }) {
+  const todo = useSelector(state => selectTodoById(state, id))
+  const {text, completed, color} = todo
+  const dispatch = useDispatch()
 
-  const handleCompletedChanged = e => {
-    onCompletedChange(e.target.checked, id)
+  const handleCompletedChanged = () => {
+    dispatch({type: 'todos/todoToggled', payload: todo.id})
   }
 
   const handleColorChanged = e => {
@@ -48,6 +52,4 @@ const TodoListItem = React.memo(({ todo, onColorChange, onCompletedChange, onDel
       </div>
     </li>
   )
-})
-
-export default TodoListItem
+}

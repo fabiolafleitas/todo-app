@@ -1,19 +1,13 @@
-import React, { useCallback } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectTodos } from './todosSlice'
+import React from 'react'
+import {shallowEqual, useSelector} from 'react-redux'
+import { selectTodosIds } from './todosSlice'
 import TodoListItem from './TodoListItem'
 
 export default function TodoList() {
-  const todos = useSelector(selectTodos)
-  const dispatch = useDispatch()
+  const todosIds = useSelector(selectTodosIds, shallowEqual )
 
-  const handleCompleteChange = useCallback((checked, id) => {
-    if(!checked) return
-    dispatch({type: 'todos/todoToggled', payload: id})
-  }, [])
-
-  const renderedListItems = todos.map( todo => {
-    return <TodoListItem key={todo.id} todo={todo} onCompletedChange={handleCompleteChange}/>
+  const renderedListItems = todosIds.map( todoId => {
+    return <TodoListItem key={todoId} id={todoId} />
   })
 
   return (

@@ -32,6 +32,32 @@ export default function todosReducer(state = initialState, action) {
                 }
             })
         }
+        case 'todos/colorSelected': {
+            const { color, id } = action.payload
+            return state.map(todo => {
+                if(todo.id !== id){
+                    return todo
+                }
+                return {
+                    ...todo,
+                    color: color
+                }
+            })
+        }
+        case 'todos/todoDeleted': {
+            return state.filter(todo => todo.id !== action.payload)
+        }
+        case 'todos/completeAll': {
+            return state.map(todo => {
+                return {
+                    ...todo,
+                    completed: true
+                }
+            })
+        }
+        case 'todos/clearCompleted': {
+            return state.filter(todo => !todo.completed)
+        }
         default:
             return state
     }

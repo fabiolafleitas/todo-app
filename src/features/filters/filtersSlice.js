@@ -18,15 +18,16 @@ export default function filtersReducer(state = initialState, action) {
             }
         }
         case 'filters/colorsFilterChanged': {
-            if(action.payload.changeType === 'added') {
+            const { color:selectedColor, changeType } = action.payload
+            if(changeType === 'added') {
                 return {
                     ...state,
-                    colors: [...state.colors, action.payload.color]
+                    colors: [...state.colors, selectedColor]
                 }
-            }else if(action.payload.changeType === 'removed'){
+            }else if(changeType === 'removed'){
                 return {
                     ...state,
-                    colors: state.colors.filter(color => color !== action.payload.color)
+                    colors: state.colors.filter(color => color !== selectedColor)
                 }
             }else{
                 return state

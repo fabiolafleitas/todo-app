@@ -2,11 +2,11 @@ import React from 'react'
 
 import { availableColors, capitalize } from '../filters/colors'
 
-export default function TodoListItem({ todo, onColorChange, onCompletedChange, onDelete }) {
-  const { text, completed, color } = todo
+const TodoListItem = React.memo(({ todo, onColorChange, onCompletedChange, onDelete }) => {
+  const { id, text, completed, color } = todo
 
   const handleCompletedChanged = e => {
-    onCompletedChange(e.target.checked)
+    onCompletedChange(e.target.checked, id)
   }
 
   const handleColorChanged = e => {
@@ -48,4 +48,6 @@ export default function TodoListItem({ todo, onColorChange, onCompletedChange, o
       </div>
     </li>
   )
-}
+})
+
+export default TodoListItem

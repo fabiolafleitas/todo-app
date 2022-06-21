@@ -1,15 +1,17 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import StatusFilter from './StatusFilter'
 import RemainingTodos from './RemainingTodos'
 import ColorFilters from './ColorFilters'
 
-import { StatusFilters } from '../filters/filtersSlice'
+import { selectedColors, selectedStatus } from '../filters/filtersSlice'
+import { countRemainingTodos } from '../todos/todosSlice'
 
 export default function Footer() {
-  const colors = []
-  const status = StatusFilters.All
-  const todosRemaining = 1
+  const colors = useSelector(selectedColors)
+  const status = useSelector(selectedStatus)
+  const todosRemaining = useSelector(countRemainingTodos)
 
   const onColorChange = (color, changeType) =>
     console.log('Color change: ', { color, changeType })

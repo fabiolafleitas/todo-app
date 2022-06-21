@@ -38,3 +38,8 @@ export default function todosReducer(state = initialState, action) {
 }
 
 export const selectTodos = state => state.todos
+
+export const countRemainingTodos = state => {
+    const remainingTodos = state.todos.filter(todo => !todo.completed)
+    return remainingTodos.length
+}

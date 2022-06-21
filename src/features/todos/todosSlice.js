@@ -1,3 +1,5 @@
+import { client } from '../../api/client'
+
 const initialState = [
     { id: 0, text: 'Learn React', completed: true },
     { id: 1, text: 'Learn Redux', completed: false, color: 'purple' },
@@ -58,6 +60,9 @@ export default function todosReducer(state = initialState, action) {
         case 'todos/clearCompleted': {
             return state.filter(todo => !todo.completed)
         }
+        case 'todos/todosLoaded': {
+            return action.payload
+        }
         default:
             return state
     }
@@ -73,4 +78,10 @@ export const selectTodoById = (state, id) => state.todos.find(todo => todo.id ==
 export const countRemainingTodos = state => {
     const remainingTodos = state.todos.filter(todo => !todo.completed)
     return remainingTodos.length
+}
+
+//Thunk function
+export async function fetchTodos(dispatch, getState) {
+    const response  = await client.get('/fakeApi/todos')
+    dispatch({type: 'todos/todosLoaded', payload: response.todos })
 }

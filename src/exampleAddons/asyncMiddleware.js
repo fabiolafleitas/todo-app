@@ -1,4 +1,4 @@
-import {client} from "../api/client";
+import { client } from '../api/client'
 
 const asyncMiddleware = storeAPI => next => action => {
   if(typeof action === 'function'){

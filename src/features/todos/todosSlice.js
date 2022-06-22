@@ -1,9 +1,9 @@
 import { client } from '../../api/client'
 
 const initialState = [
-    { id: 0, text: 'Learn React', completed: true },
-    { id: 1, text: 'Learn Redux', completed: false, color: 'purple' },
-    { id: 2, text: 'Build something fun!', completed: false, color: 'blue' }
+    // { id: 0, text: 'Learn React', completed: true },
+    // { id: 1, text: 'Learn Redux', completed: false, color: 'purple' },
+    // { id: 2, text: 'Build something fun!', completed: false, color: 'blue' }
 ]
 
 const nextTodoId = (todos) => {
@@ -16,11 +16,7 @@ export default function todosReducer(state = initialState, action) {
         case 'todos/todoAdded': {
             return [
                 ...state,
-                {
-                    id: nextTodoId(state),
-                    text: action.payload,
-                    completed: false
-                }
+                action.payload
             ]
         }
         case 'todos/todoToggled': {
@@ -80,8 +76,17 @@ export const countRemainingTodos = state => {
     return remainingTodos.length
 }
 
-//Thunk function
+// Thunk function
 export async function fetchTodos(dispatch, getState) {
     const response  = await client.get('/fakeApi/todos')
     dispatch({type: 'todos/todosLoaded', payload: response.todos })
+}
+
+// Accepts the text as parameter and returns the thunk function
+export function saveTodo(text) {
+    return async (dispatch, getState) => {
+        const newTodo = { text }
+        const response = await client.post('fakeApi/todos', {todo: newTodo})
+        dispatch({type: 'todos/todoAdded', payload: response.todo })
+    }
 }

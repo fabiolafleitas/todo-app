@@ -21,6 +21,7 @@ export default function ColorFilters({ value: colors, onChange }) {
           className="color-block"
           style={{
             backgroundColor: color,
+            opacity: '0.8'
           }}
         ></span>
         {capitalize(color)}

@@ -396,27 +396,31 @@ ul.todo-list {
 }
 
 .todo-list li select.colorPicker option {
-  font-weight: 700;
+  font-weight: normal;
+}
+
+.todo-list li select.colorPicker option[value=''] {
+  color: #404040;
 }
 
 .todo-list li select.colorPicker option[value='green'] {
-  color: green;
+  color: #008000;
 }
 
 .todo-list li select.colorPicker option[value='blue'] {
-  color: blue;
+  color: #0000ff;
 }
 
 .todo-list li select.colorPicker option[value='orange'] {
-  color: orange;
+  color: #ffa500;
 }
 
 .todo-list li select.colorPicker option[value='purple'] {
-  color: purple;
+  color: #622db6;
 }
 
 .todo-list li select.colorPicker option[value='red'] {
-  color: red;
+  color: #ff0000;
 }
 
 .todo-list li .destroy {

@@ -76,17 +76,35 @@ export const countRemainingTodos = state => {
     return remainingTodos.length
 }
 
-// Thunk function
-export async function fetchTodos(dispatch, getState) {
-    const response  = await client.get('/fakeApi/todos')
-    dispatch({type: 'todos/todosLoaded', payload: response.todos })
+// Action creator for load Todos
+export const todosLoaded = todos => {
+    return {
+        type: 'todos/todosLoaded',
+        payload: todos
+    }
 }
 
-// Accepts the text as parameter and returns the thunk function
+export const fetchTodos = () => {
+    // Thunk function
+    return async function fetchTodosThunk(dispatch, getState) {
+        const response  = await client.get('/fakeApi/todos')
+        dispatch(todosLoaded(response.todos))
+    }
+}
+
+// Action creator for add todo
+export const todoAdded = todo => {
+    return {
+        type: 'todos/todoAdded',
+        payload: todo
+    }
+}
+
+// Thunk action creator for save a new todo
 export function saveTodo(text) {
     return async (dispatch, getState) => {
         const newTodo = { text }
         const response = await client.post('fakeApi/todos', {todo: newTodo})
-        dispatch({type: 'todos/todoAdded', payload: response.todo })
+        dispatch(todoAdded(response.todo))
     }
 }

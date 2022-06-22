@@ -5,7 +5,7 @@ import StatusFilter from './StatusFilter'
 import RemainingTodos from './RemainingTodos'
 import ColorFilters from './ColorFilters'
 
-import { selectedColors, selectedStatus } from '../filters/filtersSlice'
+import { selectedColors, selectedStatus, colorsFilterChanged } from '../filters/filtersSlice'
 import { countRemainingTodos } from '../todos/todosSlice'
 
 export default function Footer() {
@@ -23,12 +23,10 @@ export default function Footer() {
   }
 
   const onColorChange = (color, changeType) => {
-    console.log('Color change: ', { color, changeType })
-    dispatch({type: 'filters/colorsFilterChanged', payload: {color, changeType}})
+    dispatch(colorsFilterChanged(color, changeType))
   }
 
   const handleStatusChange = status => {
-    console.log('Status change: ', status)
     dispatch({type: 'filters/statusFilterChanged', payload: status})
   }
 

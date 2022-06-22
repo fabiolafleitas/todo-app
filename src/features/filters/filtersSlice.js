@@ -41,3 +41,11 @@ export default function filtersReducer(state = initialState, action) {
 export const selectedColors = state => state.filters.colors
 
 export const selectedStatus = state => state.filters.status
+
+// Action creator for color filter changed
+export const colorsFilterChanged = (color, changeType) => {
+    return {
+        type: 'filters/colorsFilterChanged',
+        payload: {color, changeType}
+    }
+}

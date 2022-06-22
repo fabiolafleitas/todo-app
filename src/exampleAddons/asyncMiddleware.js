@@ -1,8 +1,10 @@
 import { client } from '../api/client'
 
+/* Simplified version of the reduxThunkMiddleware */
 const asyncMiddleware = storeAPI => next => action => {
   if(typeof action === 'function'){
     // call the function and pass dispatch and getState as arguments
+    // Also, return whatever the thunk function returns
     return action(storeAPI.dispatch, storeAPI.getState)
   }
 

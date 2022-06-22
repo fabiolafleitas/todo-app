@@ -1,5 +1,5 @@
 import { client } from '../../api/client'
-import { createSelector } from 'reselect'
+import { createSelector } from '@reduxjs/toolkit'
 import { StatusFilters } from '../filters/filtersSlice'
 
 const initialState = {

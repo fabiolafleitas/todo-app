@@ -1,4 +1,5 @@
 import { client } from '../../api/client'
+import { createSelector } from 'reselect'
 
 const initialState = [
     // { id: 0, text: 'Learn React', completed: true },
@@ -64,10 +65,13 @@ export default function todosReducer(state = initialState, action) {
     }
 }
 
-export const selectTodos = state => state.todos
-
-// Will always update the reference so, use this along with a comparison function
-export const selectTodosIds = state => state.todos.map(todo => todo.id)
+export const selectTodosIds = createSelector(
+  // Pass one or more input selector functions
+  state => state.todos,
+  // Output selector that receives all input results as arguments
+  // and returns a final result value
+  todos => todos.map(todo => todo.id)
+)
 
 export const selectTodoById = (state, id) => state.todos.find(todo => todo.id === id)
 

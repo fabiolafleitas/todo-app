@@ -1,3 +1,5 @@
+import { createSlice } from '@reduxjs/toolkit'
+
 export const StatusFilters = {
     All: 'all',
     Active: 'active',
@@ -9,43 +11,37 @@ const initialState = {
     colors: []
 }
 
-export default function filtersReducer(state = initialState, action) {
-    switch (action.type) {
-        case 'filters/statusFilterChanged': {
-            return {
-                ...state,
-                status: action.payload
-            }
-        }
-        case 'filters/colorsFilterChanged': {
-            const { color:selectedColor, changeType } = action.payload
-            if(changeType === 'added') {
-                return {
-                    ...state,
-                    colors: [...state.colors, selectedColor]
-                }
-            }else if(changeType === 'removed'){
-                return {
-                    ...state,
-                    colors: state.colors.filter(color => color !== selectedColor)
-                }
-            }else{
-                return state
-            }
-        }
-        default:
-            return state
-    }
-}
+const filtersSlice = createSlice({
+   name: 'filters',
+   initialState,
+   reducers: {
+       statusFilterChanged(state, action) {
+           state.status = action.payload
+       },
+       colorsFilterChanged: {
+           reducer(state, action) {
+               const { color, changeType } = action.payload
+               if(changeType === 'added') {
+                   state.colors.push(color)
+               }else if(changeType === 'removed'){
+                   state.colors = state.colors.filter(c => c !== color)
+               }else{
+                   return state
+               }
+           },
+           prepare(color, changeType) {
+               return {
+                   payload: { color, changeType }
+               }
+           }
+       }
+   }
+})
+
+export const { statusFilterChanged, colorsFilterChanged } = filtersSlice.actions
+
+export default filtersSlice.reducer
 
 export const selectedColors = state => state.filters.colors
 
 export const selectedStatus = state => state.filters.status
-
-// Action creator for color filter changed
-export const colorsFilterChanged = (color, changeType) => {
-    return {
-        type: 'filters/colorsFilterChanged',
-        payload: {color, changeType}
-    }
-}

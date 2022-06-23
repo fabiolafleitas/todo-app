@@ -5,7 +5,7 @@ import StatusFilter from './StatusFilter'
 import RemainingTodos from './RemainingTodos'
 import ColorFilters from './ColorFilters'
 
-import { selectedColors, selectedStatus, colorsFilterChanged } from '../filters/filtersSlice'
+import { selectedColors, selectedStatus, statusFilterChanged, colorsFilterChanged } from '../filters/filtersSlice'
 import { countRemainingTodos, completeAllTodos, clearCompletedTodos } from '../todos/todosSlice'
 
 export default function Footer() {
@@ -27,7 +27,7 @@ export default function Footer() {
   }
 
   const handleStatusChange = status => {
-    dispatch({type: 'filters/statusFilterChanged', payload: status})
+    dispatch(statusFilterChanged(status))
   }
 
   return (

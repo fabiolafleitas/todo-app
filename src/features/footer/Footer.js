@@ -6,7 +6,7 @@ import RemainingTodos from './RemainingTodos'
 import ColorFilters from './ColorFilters'
 
 import { selectedColors, selectedStatus, colorsFilterChanged } from '../filters/filtersSlice'
-import { countRemainingTodos } from '../todos/todosSlice'
+import { countRemainingTodos, completeAllTodos, clearCompletedTodos } from '../todos/todosSlice'
 
 export default function Footer() {
   const colors = useSelector(selectedColors)
@@ -15,11 +15,11 @@ export default function Footer() {
   const dispatch = useDispatch()
 
   const handleCompleteAll = () => {
-    dispatch({type: 'todos/completeAll'})
+    dispatch(completeAllTodos())
   }
 
   const handleClearCompleted = () => {
-    dispatch({type: 'todos/clearCompleted'})
+    dispatch(clearCompletedTodos())
   }
 
   const onColorChange = (color, changeType) => {
